@@ -70,24 +70,22 @@ def process(env, raise_on_absence=True):
                 else:
                     setattr(env, attribute, type_(env_var))
             else:
-                setattr(env, attribute, env_var)
+                # Otherwise, cast to the type that the attribute was initialized to
+                type_ = type(members[attribute])
+                setattr(env, attribute, type_(env_var))
         else:
             # Env var is not present - check if a default is specified
             default_val = members.get(attribute)
             if not default_val:
                 # No default value available - raise if that kwarg is set
                 if raise_on_absence:
-                    raise NoEnvError(f'No default value provided and no env var set for {attribute} (env var: {env_var}')
+                    raise EnvconfigException(f'No default value provided and no env var set for {attribute} (env var: {env_var})')
                 else:
-                    logging.getLogger().warning(f'No default value provided and no env var set for {attribute} (env var: {attribute.upper()}')
+                    logging.getLogger().warning(f'No default value provided and no env var set for {attribute} (env var: {attribute.upper()})')
                     logging.getLogger().warning(f'Setting value to None')
                     setattr(env, attribute, None)
 
 
 
 class EnvconfigException(Exception):
-    pass
-
-
-class NoEnvError(EnvconfigException):
     pass
