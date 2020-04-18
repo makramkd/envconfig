@@ -27,5 +27,6 @@ setup(
     test_suite='setup.test_suite',
     tests_require=[
         'coverage',
+        'flake8',
     ],
 )
