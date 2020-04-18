@@ -3,7 +3,7 @@ from typing import get_type_hints, Dict, Any, AnyStr
 import os
 import logging
 
-from distutils.util import strtobool # For casting to bool
+from distutils.util import strtobool  # For casting to bool
 
 
 def process(env, raise_on_absence=True):
@@ -79,12 +79,13 @@ def process(env, raise_on_absence=True):
             if not default_val:
                 # No default value available - raise if that kwarg is set
                 if raise_on_absence:
-                    raise EnvconfigException(f'No default value provided and no env var set for {attribute} (env var: {env_var})')
+                    raise EnvconfigException(f'No default value provided and no env var'
+                                             f' set for {attribute} (env var: {env_var})')
                 else:
-                    logging.getLogger().warning(f'No default value provided and no env var set for {attribute} (env var: {attribute.upper()})')
+                    logging.getLogger().warning(f'No default value provided and no env var'
+                                                f' set for {attribute} (env var: {attribute.upper()})')
                     logging.getLogger().warning(f'Setting value to None')
                     setattr(env, attribute, None)
-
 
 
 class EnvconfigException(Exception):
