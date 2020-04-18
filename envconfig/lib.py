@@ -133,7 +133,7 @@ def _process_env_var(attribute, env_var, hints, members, env, raise_on_absence):
             # No default value available - raise if that kwarg is set
             if raise_on_absence:
                 raise EnvconfigException(f'No default value provided and no env var'
-                                            f' set for {attribute} (env var: {env_var})')
+                                         f' set for {attribute} (env var: {env_var})')
             else:
                 logging.getLogger().warning(f'No default value provided and no env var'
                                             f' set for {attribute} (env var: {attribute.upper()})')
