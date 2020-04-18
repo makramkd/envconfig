@@ -35,6 +35,13 @@ class Config:
 # Create an instance of your config object and let envconfig process it!
 config = Config()
 envconfig.process(config)
+
+# Access class attributes
+aws_client = Client(
+  access_key_id=config.aws_access_key_id,
+  secret_access_key=config.aws_secret_access_key,
+  region=config.aws_region,
+)
 ```
 
 ## Development
@@ -47,8 +54,10 @@ Simply check out the repository, create a `virtualenv`, and go to town!
 
 ```bash
 git clone https://github.com/makramkd/envconfig  # or git@github.com:makramkd/envconfig.git if you prefer
+cd envconfig
 pyenv local 3.6.3  # ensure python 3.6
 python -m venv .venv  # create venv
+source .venv/bin/activate
 pip install -r test_requirements.txt  # for coverage, flake8
 ```
 
