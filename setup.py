@@ -1,3 +1,4 @@
+import os
 from setuptools import setup, find_packages
 import unittest
 
@@ -16,6 +17,15 @@ setup(
     description='Simple environment variable configuration for Python',
     author='Makram Kamaleddine',
     url='github.com/makramkd/envconfig',
+    keywords='environment-variables env-var configuration',
+    long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
+    classifiers=[
+        'Intended Audience :: Developers',
+        'Programming Language :: Python :: 3',
+    ],
     packages=find_packages(),
     test_suite='setup.test_suite',
+    tests_require=[
+        'coverage',
+    ],
 )
