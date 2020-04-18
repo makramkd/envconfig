@@ -99,5 +99,19 @@ class TestEnvconfig(unittest.TestCase):
         self.assertEqual(28, env.age)
         self.assertFalse(env.is_married)
 
-    def test_process_(self):
-        pass
+    def test_process_prefix_set(self):
+        os.environ['PERSON_NAME'] = 'Makram'
+        os.environ['PERSON_AGE'] = '28'
+        os.environ['PERSON_IS_MARRIED'] = 'false'
+
+        class Environment:
+            name: str
+            age = 25 # no type hint specified, but should still be processed as int
+            is_married: bool = True
+
+        env = Environment()
+        envconfig.process(env, prefix='person')
+
+        self.assertEqual('Makram', env.name)
+        self.assertEqual(28, env.age)
+        self.assertFalse(env.is_married)
