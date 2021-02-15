@@ -19,6 +19,7 @@ setup(
     url='github.com/makramkd/envconfig',
     keywords='environment-variables env-var configuration',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
+    long_description_content_type='text/markdown',
     classifiers=[
         'Intended Audience :: Developers',
         'Programming Language :: Python :: 3',
