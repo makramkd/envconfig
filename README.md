@@ -13,6 +13,14 @@ Features:
 * Well documented,
 * Fun to use ;)
 
+## Install
+
+You can install `pyenvconfig` easily, using `pip`:
+
+```
+pip install pyenvconfig
+```
+
 ## Quickstart
 
 ```python
