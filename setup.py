@@ -16,7 +16,7 @@ setup(
     version=envconfig.__version__,
     description='Simple environment variable configuration for Python',
     author='Makram Kamaleddine',
-    url='github.com/makramkd/envconfig',
+    url='https://github.com/makramkd/envconfig',
     keywords='environment-variables env-var configuration',
     long_description=open(os.path.join(os.path.dirname(__file__), 'README.md')).read(),
     long_description_content_type='text/markdown',
