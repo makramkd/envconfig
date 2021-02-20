@@ -1,14 +1,11 @@
 import inspect
-from typing import get_type_hints, Dict, Any, AnyStr
-import os
 import logging
-
+import os
 from distutils.util import strtobool  # For casting to bool
+from typing import Any, AnyStr, Dict, get_type_hints
 
 
-def process(env: Any,
-            raise_on_absence=True,
-            prefix=''):
+def process(env: Any, raise_on_absence=True, prefix=""):
     """
     Given an object that has members defined with type hints,
     load environment variables with the name of these members.
@@ -67,7 +64,9 @@ def process(env: Any,
 def _get_env_var_name(prefix: str, attribute: str):
     # Prepend the given given prefix and an underscore if a prefix is set.
     # Otherwise, just use the attribute name.
-    return prefix.upper() + '_' + attribute.upper() if prefix != '' else attribute.upper()
+    return (
+        prefix.upper() + "_" + attribute.upper() if prefix != "" else attribute.upper()
+    )
 
 
 def _get_attributes(obj: Any):
@@ -101,11 +100,7 @@ def _get_attributes(obj: Any):
         lambda m: not inspect.isroutine(m),
     )
     # Ignore members that start with underscores
-    members = {
-        key: value
-        for (key, value) in members
-        if not key.startswith('_')
-    }
+    members = {key: value for (key, value) in members if not key.startswith("_")}
     # Construct the union of attributes that we got from both hints
     # and members
     attributes = set(members.keys()) | set(hints.keys())
@@ -132,12 +127,16 @@ def _process_env_var(attribute, env_var, hints, members, env, raise_on_absence):
         if not default_val:
             # No default value available - raise if that kwarg is set
             if raise_on_absence:
-                raise EnvconfigException(f'No default value provided and no env var'
-                                         f' set for {attribute} (env var: {env_var})')
+                raise EnvconfigException(
+                    f"No default value provided and no env var"
+                    f" set for {attribute} (env var: {env_var})"
+                )
             else:
-                logging.getLogger().warning(f'No default value provided and no env var'
-                                            f' set for {attribute} (env var: {attribute.upper()})')
-                logging.getLogger().warning(f'Setting value to None')
+                logging.getLogger().warning(
+                    f"No default value provided and no env var"
+                    f" set for {attribute} (env var: {attribute.upper()})"
+                )
+                logging.getLogger().warning(f"Setting value to None")
                 setattr(env, attribute, None)
 
 
@@ -145,4 +144,5 @@ class EnvconfigException(Exception):
     """
     Base class for all envconfig exceptions.
     """
+
     pass
