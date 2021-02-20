@@ -30,6 +30,12 @@ jobs:
         pip install -r test_requirements.txt
         # Install envconfig package
         python setup.py install
+    - name: Check style with black
+      run: |
+        black --check .
+    - name: Check imports with isort
+      run: |
+        isort --profile black --check-only .
     - name: Lint with flake8
       run: |
         # stop the build if there are Python syntax errors or undefined names
